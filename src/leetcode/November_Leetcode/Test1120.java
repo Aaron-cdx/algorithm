@@ -87,5 +87,29 @@ public class Test1120 {
         }
         return res;
     }
+
     // 二分法
+    public static int lengthOfLIS2(int[] nums) {
+        if (nums.length == 0) return 0;
+        int[] dp = new int[nums.length];
+        int res = 0;
+        for (int num : nums) {
+            int i = 0;
+            int j = res;
+            while (i < j) {
+                int mid = (i+j)/2;
+                // 如果中间的数小于当前的数，i继续向后走，看看有没有机会接到最后面
+                if(dp[mid] < num) i=mid+1;
+                // 否则用j代替mid的位置，继续向前判断值，如果没有大于的，如果没有大于的，这个mid会向0走
+                else j = mid;
+            }
+            // 给保存的数组赋值，其中i的变化由循环中的逻辑来处理
+            dp[i] = num;
+            // 如果结果与j值相等,其实j值就是res顺利时候往后推进的指针
+            if (res == j) {
+                res++;
+            }
+        }
+        return res;
+    }
 }
